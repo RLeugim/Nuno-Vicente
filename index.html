@@ -1,117 +1,118 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>A Proteção do Vicente</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .tab-content { display: none; animation: fadeIn 0.5s ease-in-out; }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .bg-medical { background-color: #f0f7fb; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-out; }
+        .tab-content.active { display: flex; flex-direction: column; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        /* Smooth scrolling inside content area if needed */
+        .content-scroll { overflow-y: auto; scroll-behavior: smooth; }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4 font-sans text-gray-800">
+<body class="bg-gray-200 md:flex md:items-center md:justify-center min-h-screen font-sans text-gray-800 m-0 p-0">
 
-    <div class="bg-white max-w-lg w-full rounded-2xl shadow-xl overflow-hidden border border-gray-200">
+    <!-- Container: Full screen on mobile, Boxed on PC -->
+    <div class="bg-white w-full min-h-screen md:min-h-0 md:h-auto md:max-w-2xl md:rounded-2xl shadow-2xl flex flex-col overflow-hidden">
         
         <!-- Header -->
-        <div class="bg-blue-600 text-white p-6 text-center">
-            <div class="inline-block bg-white text-blue-600 rounded-full p-3 mb-3 shadow-lg">
-                <i class="fa-solid fa-baby fa-2x"></i>
+        <div class="bg-blue-700 text-white p-5 md:p-6 text-center flex-shrink-0 shadow-md z-10">
+            <div class="inline-flex items-center justify-center bg-white text-blue-700 rounded-full w-14 h-14 mb-2 shadow-lg">
+                <i class="fa-solid fa-baby fa-xl"></i>
             </div>
-            <h1 class="text-2xl font-bold">A Proteção do Nosso Vicente</h1>
-            <p class="text-blue-100 mt-1 text-sm">Um guia da família para os primeiros 3 meses</p>
+            <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">A Proteção do Vicente</h1>
+            <p class="text-blue-100 mt-1 text-sm md:text-base font-medium">Guia para os primeiros 3 meses</p>
         </div>
 
-        <!-- Navigation Tabs -->
-        <div class="flex border-b bg-gray-50 overflow-x-auto">
-            <button onclick="openTab('tab1')" id="btn-tab1" class="flex-1 py-3 px-2 text-sm font-semibold border-b-4 border-blue-600 text-blue-600 transition-colors whitespace-nowrap">
-                <i class="fa-solid fa-info-circle mb-1 block text-lg"></i> O Contexto
+        <!-- Navigation Tabs: 2x2 Grid on Mobile, Row on PC -->
+        <div class="grid grid-cols-2 md:flex border-b-2 border-gray-100 bg-gray-50 flex-shrink-0 z-10 shadow-sm">
+            <button onclick="openTab('tab1')" id="btn-tab1" class="py-3 px-2 text-sm md:text-base font-bold border-b-4 border-blue-600 text-blue-700 transition-colors flex flex-col items-center justify-center text-center">
+                <i class="fa-solid fa-info-circle mb-1 text-lg"></i> O Contexto
             </button>
-            <button onclick="openTab('tab2')" id="btn-tab2" class="flex-1 py-3 px-2 text-sm font-semibold border-b-4 border-transparent text-gray-500 hover:text-blue-500 transition-colors whitespace-nowrap">
-                <i class="fa-solid fa-heart-pulse mb-1 block text-lg"></i> A Saúde
+            <button onclick="openTab('tab2')" id="btn-tab2" class="py-3 px-2 text-sm md:text-base font-bold border-b-4 border-transparent text-gray-500 hover:text-blue-600 transition-colors flex flex-col items-center justify-center text-center">
+                <i class="fa-solid fa-heart-pulse mb-1 text-lg"></i> A Saúde
             </button>
-            <button onclick="openTab('tab3')" id="btn-tab3" class="flex-1 py-3 px-2 text-sm font-semibold border-b-4 border-transparent text-gray-500 hover:text-blue-500 transition-colors whitespace-nowrap">
-                <i class="fa-solid fa-shield-halved mb-1 block text-lg"></i> As Regras
+            <button onclick="openTab('tab3')" id="btn-tab3" class="py-3 px-2 text-sm md:text-base font-bold border-b-4 border-transparent text-gray-500 hover:text-blue-600 transition-colors flex flex-col items-center justify-center text-center border-t md:border-t-0 border-gray-200">
+                <i class="fa-solid fa-shield-halved mb-1 text-lg"></i> As Regras
             </button>
-            <button onclick="openTab('tab4')" id="btn-tab4" class="flex-1 py-3 px-2 text-sm font-semibold border-b-4 border-transparent text-gray-500 hover:text-blue-500 transition-colors whitespace-nowrap">
-                <i class="fa-solid fa-hand-holding-heart mb-1 block text-lg"></i> O Pedido
+            <button onclick="openTab('tab4')" id="btn-tab4" class="py-3 px-2 text-sm md:text-base font-bold border-b-4 border-transparent text-gray-500 hover:text-blue-600 transition-colors flex flex-col items-center justify-center text-center border-t md:border-t-0 border-gray-200">
+                <i class="fa-solid fa-hand-holding-heart mb-1 text-lg"></i> O Pedido
             </button>
         </div>
 
         <!-- Content Area -->
-        <div class="p-6 bg-medical min-h-[350px] flex flex-col justify-between">
+        <div class="p-5 md:p-8 bg-[#f8fbff] flex-grow content-scroll relative">
             
             <!-- Tab 1: O Contexto -->
-            <div id="tab1" class="tab-content active">
-                <h2 class="text-xl font-bold text-blue-800 mb-4 flex items-center"><i class="fa-solid fa-seedling mr-2 text-green-500"></i> Uma Gravidez Delicada</h2>
-                <p class="mb-4 text-lg leading-relaxed">O nosso Vicente é um guerreiro. A gravidez foi muito dura para a mãe Geo, que teve várias recaídas de uma <strong>doença autoimune</strong> que só foi descoberta recentemente.</p>
-                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 shadow-sm mb-4">
-                    <p class="text-md"><i class="fa-solid fa-stethoscope text-blue-500 mr-2"></i><strong>O que isto significa?</strong><br>O Vicente foi gerado num ambiente de alerta médico constante. Ele nasceu lindo, mas precisa de muito tempo e paz para que o seu corpinho ganhe defesas próprias.</p>
+            <div id="tab1" class="tab-content active h-full">
+                <h2 class="text-xl md:text-2xl font-black text-blue-900 mb-4 flex items-center border-b pb-2"><i class="fa-solid fa-seedling mr-3 text-green-500"></i> Uma Gravidez Delicada</h2>
+                <p class="mb-5 text-base md:text-lg leading-relaxed text-gray-700">O nosso Vicente é um guerreiro. A gravidez foi muito dura para a mãe Geo, que teve várias recaídas de uma <strong>doença autoimune</strong> descoberta recentemente.</p>
+                <div class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500 shadow-sm mt-auto">
+                    <p class="text-base md:text-lg text-gray-800"><i class="fa-solid fa-stethoscope text-blue-600 mr-2"></i><strong>O que isto significa?</strong><br>O Vicente foi gerado num ambiente de alerta. Ele nasceu lindo, mas precisa de muito tempo e paz para que o seu corpinho ganhe defesas.</p>
                 </div>
             </div>
 
             <!-- Tab 2: A Saúde -->
-            <div id="tab2" class="tab-content">
-                <h2 class="text-xl font-bold text-blue-800 mb-4 flex items-center"><i class="fa-solid fa-microscope mr-2 text-purple-500"></i> Vigilância Médica</h2>
-                <p class="mb-4 text-lg leading-relaxed">A mãe tem um marcador no sangue (Ro-52) que é muito agressivo. Não sabemos ainda se isso afetou o Vicente de forma invisível.</p>
-                <ul class="space-y-3 mb-4 text-lg">
-                    <li class="flex items-start">
-                        <i class="fa-solid fa-heart text-red-500 mt-1 mr-3"></i>
-                        <span>Ele terá de fazer exames <strong>todos os meses</strong> ao coração e pulmões.</span>
+            <div id="tab2" class="tab-content h-full">
+                <h2 class="text-xl md:text-2xl font-black text-blue-900 mb-4 flex items-center border-b pb-2"><i class="fa-solid fa-microscope mr-3 text-purple-500"></i> Vigilância Médica</h2>
+                <p class="mb-5 text-base md:text-lg leading-relaxed text-gray-700">A mãe tem um marcador no sangue (Ro-52) muito agressivo. Não sabemos ainda se isso o afetou de forma invisível.</p>
+                <ul class="space-y-4 text-base md:text-lg text-gray-800">
+                    <li class="flex items-start bg-white p-3 rounded-lg shadow-sm border border-gray-100">
+                        <i class="fa-solid fa-heart text-red-500 mt-1 mr-3 text-xl"></i>
+                        <span>Terá de fazer exames <strong>mensais</strong> ao coração e pulmões.</span>
                     </li>
-                    <li class="flex items-start">
-                        <i class="fa-solid fa-virus text-green-600 mt-1 mr-3"></i>
-                        <span>Qualquer vírus de adulto (uma simples tosse) pode ser fatal ou esconder um problema grave de coração que os médicos precisam de vigiar.</span>
+                    <li class="flex items-start bg-white p-3 rounded-lg shadow-sm border border-gray-100">
+                        <i class="fa-solid fa-virus text-green-600 mt-1 mr-3 text-xl"></i>
+                        <span>Uma simples tosse de adulto pode ser fatal ou esconder um problema grave de coração.</span>
                     </li>
                 </ul>
             </div>
 
             <!-- Tab 3: As Regras -->
-            <div id="tab3" class="tab-content">
-                <h2 class="text-xl font-bold text-blue-800 mb-4 flex items-center"><i class="fa-solid fa-clipboard-list mr-2 text-orange-500"></i> Ordem dos Médicos (Até 3 Meses)</h2>
-                <p class="mb-4 text-lg font-semibold text-gray-700">A Pediatra e a Infecciologista foram muito claras. Não é um exagero nosso, é uma ordem médica:</p>
+            <div id="tab3" class="tab-content h-full">
+                <h2 class="text-xl md:text-2xl font-black text-blue-900 mb-4 flex items-center border-b pb-2"><i class="fa-solid fa-user-doctor mr-3 text-orange-500"></i> Ordem Médica</h2>
+                <p class="mb-5 text-base md:text-lg font-bold text-gray-700">Indicações da Pediatra e Infecciologista até aos 3 meses:</p>
                 
                 <div class="space-y-3">
-                    <div class="bg-red-50 p-3 rounded flex items-center border border-red-200">
-                        <div class="bg-red-500 text-white p-2 rounded-full mr-3"><i class="fa-solid fa-ban"></i></div>
-                        <span class="text-lg font-bold text-red-800">PROIBIDO tocar ou pegar no Vicente.</span>
+                    <div class="bg-red-50 p-4 rounded-xl flex items-center border-2 border-red-200 shadow-sm">
+                        <div class="bg-red-500 text-white p-3 rounded-full mr-4 flex-shrink-0"><i class="fa-solid fa-ban fa-lg"></i></div>
+                        <span class="text-lg md:text-xl font-black text-red-900">PROIBIDO tocar ou pegar no Vicente.</span>
                     </div>
-                    <div class="bg-green-50 p-3 rounded flex items-center border border-green-200">
-                        <div class="bg-green-500 text-white p-2 rounded-full mr-3"><i class="fa-solid fa-mask"></i></div>
-                        <span class="text-lg text-green-800">Obrigatório usar <strong>Máscara</strong> no quarto.</span>
+                    <div class="bg-green-50 p-4 rounded-xl flex items-center border-2 border-green-200 shadow-sm">
+                        <div class="bg-green-600 text-white p-3 rounded-full mr-4 flex-shrink-0"><i class="fa-solid fa-mask fa-lg"></i></div>
+                        <span class="text-lg md:text-xl font-bold text-green-900">Uso de <strong>Máscara</strong>.</span>
                     </div>
-                    <div class="bg-green-50 p-3 rounded flex items-center border border-green-200">
-                        <div class="bg-green-500 text-white p-2 rounded-full mr-3"><i class="fa-solid fa-pump-medical"></i></div>
-                        <span class="text-lg text-green-800">Obrigatório desinfetar mãos com <strong>Álcool Gel</strong>.</span>
+                    <div class="bg-green-50 p-4 rounded-xl flex items-center border-2 border-green-200 shadow-sm">
+                        <div class="bg-green-600 text-white p-3 rounded-full mr-4 flex-shrink-0"><i class="fa-solid fa-pump-medical fa-lg"></i></div>
+                        <span class="text-lg md:text-xl font-bold text-green-900">Desinfetar com <strong>Gel</strong>.</span>
                     </div>
                 </div>
             </div>
 
             <!-- Tab 4: O Pedido -->
-            <div id="tab4" class="tab-content">
-                <h2 class="text-xl font-bold text-blue-800 mb-4 flex items-center"><i class="fa-solid fa-people-roof mr-2 text-blue-500"></i> Especialmente para o Avô Agostinho</h2>
-                <p class="mb-4 text-lg leading-relaxed">Pai, sabemos que amas o teu neto e tens muita vontade de lhe pegar depois de um dia de trabalho. Nós compreendemos perfeitamente.</p>
-                <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400 mb-4">
-                    <p class="text-lg"><strong>Mas a prova de amor maior agora é protegê-lo.</strong> Uma tosse ligeira para ti, é um furacão para ele sem vacinas.</p>
-                    <p class="text-lg mt-2">Por favor, ajuda-nos a cumprir as regras. Não queremos arriscar e sentir culpa amanhã. Em breve ele estará forte para o teu colo!</p>
+            <div id="tab4" class="tab-content h-full">
+                <h2 class="text-xl md:text-2xl font-black text-blue-900 mb-4 flex items-center border-b pb-2"><i class="fa-solid fa-people-roof mr-3 text-blue-500"></i> Para o Avô Agostinho</h2>
+                <p class="mb-4 text-base md:text-lg leading-relaxed text-gray-700">Pai, sabemos o quanto amas o teu neto e a vontade que tens de lhe pegar depois de um dia de trabalho.</p>
+                <div class="bg-yellow-50 p-5 rounded-xl border-l-4 border-yellow-500 shadow-md">
+                    <p class="text-lg md:text-xl font-bold text-gray-800">A maior prova de amor agora é protegê-lo.</p>
+                    <p class="text-base md:text-lg mt-3 text-gray-700">Por favor, ajuda-nos a cumprir as regras médicas. Não queremos arriscar. Em breve ele estará forte para o teu colo!</p>
                 </div>
             </div>
+        </div>
 
-            <!-- Navigation Buttons inside content -->
-            <div class="mt-6 flex justify-between items-center pt-4 border-t border-gray-200">
-                <button id="btn-prev" onclick="prevTab()" class="text-blue-600 font-bold px-4 py-2 rounded hover:bg-blue-100 hidden">
-                    <i class="fa-solid fa-arrow-left mr-2"></i> Anterior
-                </button>
-                <div class="flex-1"></div> <!-- Spacer -->
-                <button id="btn-next" onclick="nextTab()" class="bg-blue-600 text-white font-bold px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition-colors">
-                    Seguinte <i class="fa-solid fa-arrow-right ml-2"></i>
-                </button>
-            </div>
+        <!-- Footer / Navigation Buttons -->
+        <div class="p-4 md:p-6 bg-white border-t border-gray-200 flex justify-between items-center flex-shrink-0 z-10">
+            <button id="btn-prev" onclick="prevTab()" class="text-blue-700 font-bold px-4 py-3 rounded-lg bg-blue-50 hover:bg-blue-100 transition-colors invisible">
+                <i class="fa-solid fa-arrow-left mr-1"></i> Voltar
+            </button>
+            <div class="flex-1"></div>
+            <button id="btn-next" onclick="nextTab()" class="bg-blue-700 text-white font-bold px-6 py-3 rounded-lg shadow-md hover:bg-blue-800 transition-colors flex items-center text-lg">
+                Seguinte <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
         </div>
     </div>
 
@@ -120,29 +121,45 @@
         let currentTabIndex = 0;
 
         function updateUI() {
-            // Hide all tabs
+            // Scroll to top of content area on tab change
+            document.querySelector('.content-scroll').scrollTop = 0;
+
             tabs.forEach(tab => {
-                document.getElementById(tab).classList.remove('active');
-                document.getElementById('btn-' + tab).classList.remove('border-blue-600', 'text-blue-600');
-                document.getElementById('btn-' + tab).classList.add('border-transparent', 'text-gray-500');
+                const content = document.getElementById(tab);
+                const btn = document.getElementById('btn-' + tab);
+                
+                content.classList.remove('active');
+                
+                // Reset button styles
+                btn.classList.remove('border-blue-600', 'text-blue-700', 'bg-blue-50');
+                btn.classList.add('border-transparent', 'text-gray-500');
             });
 
-            // Show active tab
+            // Activate current tab
             document.getElementById(tabs[currentTabIndex]).classList.add('active');
-            document.getElementById('btn-' + tabs[currentTabIndex]).classList.remove('border-transparent', 'text-gray-500');
-            document.getElementById('btn-' + tabs[currentTabIndex]).classList.add('border-blue-600', 'text-blue-600');
-
-            // Update buttons
-            document.getElementById('btn-prev').style.display = currentTabIndex === 0 ? 'none' : 'block';
             
-            if (currentTabIndex === tabs.length - 1) {
-                document.getElementById('btn-next').innerHTML = '<i class="fa-solid fa-check mr-2"></i> Compreendido';
-                document.getElementById('btn-next').classList.remove('bg-blue-600', 'hover:bg-blue-700');
-                document.getElementById('btn-next').classList.add('bg-green-600', 'hover:bg-green-700');
+            // Highlight current button
+            const activeBtn = document.getElementById('btn-' + tabs[currentTabIndex]);
+            activeBtn.classList.remove('border-transparent', 'text-gray-500');
+            activeBtn.classList.add('border-blue-600', 'text-blue-700', 'bg-blue-50/50');
+
+            // Update bottom navigation
+            const prevBtn = document.getElementById('btn-prev');
+            if (currentTabIndex === 0) {
+                prevBtn.classList.add('invisible'); // Keep space but hide
             } else {
-                document.getElementById('btn-next').innerHTML = 'Seguinte <i class="fa-solid fa-arrow-right ml-2"></i>';
-                document.getElementById('btn-next').classList.remove('bg-green-600', 'hover:bg-green-700');
-                document.getElementById('btn-next').classList.add('bg-blue-600', 'hover:bg-blue-700');
+                prevBtn.classList.remove('invisible');
+            }
+            
+            const nextBtn = document.getElementById('btn-next');
+            if (currentTabIndex === tabs.length - 1) {
+                nextBtn.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Compreendido';
+                nextBtn.classList.remove('bg-blue-700', 'hover:bg-blue-800');
+                nextBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+            } else {
+                nextBtn.innerHTML = 'Seguinte <i class="fa-solid fa-arrow-right ml-2"></i>';
+                nextBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                nextBtn.classList.add('bg-blue-700', 'hover:bg-blue-800');
             }
         }
 
@@ -156,10 +173,9 @@
                 currentTabIndex++;
                 updateUI();
             } else {
-                // Flash success on the "Compreendido" button
                 const btn = document.getElementById('btn-next');
-                btn.innerHTML = '<i class="fa-solid fa-heart"></i> Obrigado!';
-                setTimeout(() => { updateUI(); }, 2000);
+                btn.innerHTML = '<i class="fa-solid fa-heart text-white"></i> Obrigado!';
+                setTimeout(() => { updateUI(); }, 2500);
             }
         }
 
